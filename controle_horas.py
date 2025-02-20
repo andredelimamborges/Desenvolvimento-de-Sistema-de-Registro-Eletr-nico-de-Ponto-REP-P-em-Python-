@@ -12,20 +12,20 @@ import ntplib
 
 
 # =============================================
-# CONFIGURAÇÕES (ALTERE SE NECESSÁRIO)
+# CONFIGURAÇÕES 
 # =============================================
-PASTA_BASE = r'G:\Meu Drive\MS Avaliação_Cloud\Sistema Operacional Consultores'  # Altere para o caminho correto
-CAMINHO_GATILHO = os.path.join(PASTA_BASE, 'SISTEMA OPERACIONAL_MS_FILIAL MGI.xlsx')  # Planilha que inicia/para a contagem
-CAMINHO_SAIDA = os.path.join(PASTA_BASE, 'controle_horas.xlsx')    # Onde os dados são salvos
-TEMPO_VERIFICACAO = 10  # Verifica a cada 10 segundos (mais preciso)
-CHAVE_CRIPTOGRAFIA = os.path.join(PASTA_BASE, 'chave_secreta.key')  # Arquivo para armazenar a chave de criptografia
+PASTA_BASE = r'G:\Meu Drive\MS Avaliação_Cloud\Sistema Operacional Consultores' o
+CAMINHO_GATILHO = os.path.join(PASTA_BASE, 'SISTEMA OPERACIONAL_MS_FILIAL MGI.xlsx')  
+CAMINHO_SAIDA = os.path.join(PASTA_BASE, 'controle_horas.xlsx')  
+TEMPO_VERIFICACAO = 10  # 
+CHAVE_CRIPTOGRAFIA = os.path.join(PASTA_BASE, 'chave_secreta.key') 
 
 # =============================================
 # VERIFICAÇÃO E CRIAÇÃO DA PASTA BASE
 # =============================================
 if not os.path.exists(PASTA_BASE):
     try:
-        os.makedirs(PASTA_BASE)  # Cria a pasta base se não existir
+        os.makedirs(PASTA_BASE)  
         print(f"Pasta base criada em: {PASTA_BASE}")
     except Exception as e:
         print(f"Erro ao criar pasta base: {e}")
@@ -78,7 +78,7 @@ def obter_tempo_ntp():
         return datetime.fromtimestamp(resposta.tx_time)
     except ntplib.NTPException as e:
         logger.error(f"Erro ao obter tempo do servidor NTP: {e}")
-        return datetime.now()  # Fallback para o horário local
+        return datetime.now() 
 
 # =============================================
 # FUNÇÕES AUXILIARES (REVISADAS)
@@ -100,7 +100,6 @@ def planilha_aberta(caminho):
 def calcular_horas(inicio, fim):
     """Calcula horas trabalhadas e extras."""
     total = fim - inicio
-    # Desconta 1h de almoço se o tempo total for >= 6h
     if total >= timedelta(hours=6):
         total -= timedelta(hours=1)
     horas_normais = min(total, timedelta(hours=8))
@@ -116,10 +115,10 @@ def formatar_tempo(tempo):
 def salvar_horas(inicio, fim):
     """Salva os dados na planilha de saída."""
     try:
-        # Calcula horas
+       
         horas_normais, horas_extras = calcular_horas(inicio, fim)
         
-        # Cria novo registro
+ 
         novo_registro = {
             'Data': inicio.date(),
             'Entrada': inicio.strftime('%H:%M:%S'),
@@ -128,7 +127,7 @@ def salvar_horas(inicio, fim):
             'Horas Extras': formatar_tempo(horas_extras)
         }
         
-        # Lê dados existentes ou cria nova planilha
+      
         if os.path.exists(CAMINHO_SAIDA):
             df_existente = pd.read_excel(CAMINHO_SAIDA)
             df_novo = pd.DataFrame([novo_registro])
@@ -136,7 +135,7 @@ def salvar_horas(inicio, fim):
         else:
             df_final = pd.DataFrame([novo_registro])
         
-        # Tenta salvar (com retry se falhar)
+      
         tentativas = 0
         while tentativas < 3:
             try:
@@ -170,7 +169,6 @@ def main():
     
     try:
         while True:
-            # Aguarda o gatilho ser aberto
             while not planilha_aberta(CAMINHO_GATILHO):
                 print("Aguardando abertura do gatilho...")
                 logger.info("Aguardando abertura do gatilho...")
@@ -180,7 +178,6 @@ def main():
             print(f"\n▶ Contagem INICIADA em {inicio.strftime('%d/%m/%Y %H:%M:%S')}")
             logger.info(f"Contagem INICIADA em {inicio.strftime('%d/%m/%Y %H:%M:%S')}")
             
-            # Monitora até o gatilho ser fechado
             while planilha_aberta(CAMINHO_GATILHO):
                 print(f"Tempo atual: {datetime.now().strftime('%H:%M:%S')} (Mantenha o gatilho aberto)")
                 time.sleep(TEMPO_VERIFICACAO)
