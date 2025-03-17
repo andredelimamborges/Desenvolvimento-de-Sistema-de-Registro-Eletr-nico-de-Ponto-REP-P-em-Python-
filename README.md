@@ -39,21 +39,19 @@ Um script Python que rastreia horas trabalhadas usando uma planilha Excel como g
    ```bash
    pip install psutil pandas cryptography ntplib openpyxl
 
-   Configure o caminho:
+2.   **Configure o caminho:**
+PASTA_BASE = r'Insira sua pasta'
 
-python
-Copy
-PASTA_BASE = r'Insira o caminho da sua pasta'
-Execute:
 
-bash
-Copy
-python controle_horas.py
-🛡️ Recursos de Segurança
-Recurso	 Descrição
-Criptografia	 Dados protegidos com chave AES-128
-Logs Rotativos	Arquivos de log limitados a 5MB
-Verificação	3 tentativas de salvamento em caso de erro
+3. **🛡️ Recursos de Segurança**
+Recurso   Descrição
+
+Criptografia   Dados protegidos com chave AES-128
+
+Logs Rotativos   Arquivos de log limitados a 5MB
+
+Verificação   3 tentativas de salvamento em caso de erro
+
 ⚠️ Importante!
 Mantenha a planilha gatilho SISTEMA OPERACIONAL_MS_FILIAL MGI.xlsx aberta durante o trabalho
 
@@ -66,6 +64,8 @@ Problema	Solução
 "Erro ao criar pasta"	Verifique permissões de rede/drive
 "Planilha travada"	Feche o Excel e tente novamente
 "Horas incorretas"	Verifique sincronização NTP
+
+
 📝 Notas de Desenvolvimento
 python
 Copy
