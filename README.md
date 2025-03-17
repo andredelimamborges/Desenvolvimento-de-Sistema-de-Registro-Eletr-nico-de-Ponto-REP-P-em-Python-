@@ -73,5 +73,5 @@ Copy
 if planilha_aberta(GATILHO):
     inicia_contagem()
 while planilha_aberta(GATILHO):
-    atualiza_contagem()
+    atualiza_contagem():
 salva_dados()
