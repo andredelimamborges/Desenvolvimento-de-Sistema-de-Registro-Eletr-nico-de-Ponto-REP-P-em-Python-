@@ -53,7 +53,7 @@ Logs Rotativos   Arquivos de log limitados a 5MB
 Verificação   3 tentativas de salvamento em caso de erro
 
 ⚠️ Importante!
-Mantenha a planilha gatilho SISTEMA OPERACIONAL_MS_FILIAL MGI.xlsx aberta durante o trabalho
+Mantenha a planilha gatilho {Insira a sua planilha gatilho com a extensão .xlsx} aberta durante o trabalho
 
 Não altere o nome do arquivo gatilho
 
