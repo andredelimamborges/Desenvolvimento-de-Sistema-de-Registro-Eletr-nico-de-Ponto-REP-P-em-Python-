@@ -65,13 +65,3 @@ Problema	Solução
 "Planilha travada"	Feche o Excel e tente novamente
 "Horas incorretas"	Verifique sincronização NTP
 
-
-📝 Notas de Desenvolvimento
-python
-Copy
-# Estrutura principal
-if planilha_aberta(GATILHO):
-    inicia_contagem()
-while planilha_aberta(GATILHO):
-    atualiza_contagem():
-salva_dados()
